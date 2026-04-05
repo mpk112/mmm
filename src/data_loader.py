@@ -55,6 +55,11 @@ class DataLoader:
         'new_customers'
     ]
     
+    # Alternative column names that should be normalized
+    COLUMN_ALIASES = {
+        'new customers': 'new_customers'
+    }
+    
     SPEND_CHANNELS = [
         'tv_spend',
         'radio_spend',
@@ -101,6 +106,9 @@ class DataLoader:
             df = pd.read_csv(file_path)
         except Exception as e:
             raise ValueError(f"Failed to read CSV file: {str(e)}")
+        
+        # Normalize column names
+        df = self._normalize_column_names(df)
         
         # Validate schema
         schema_result = self.validate_schema(df)
@@ -203,6 +211,24 @@ class DataLoader:
             if col not in df.columns:
                 missing.append(col)
         return missing
+    
+    def _normalize_column_names(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Normalize column names to handle variations.
+        
+        Args:
+            df: DataFrame with potentially non-standard column names
+            
+        Returns:
+            DataFrame with normalized column names
+        """
+        df = df.copy()
+        
+        # Apply column aliases
+        for old_name, new_name in self.COLUMN_ALIASES.items():
+            if old_name in df.columns:
+                df = df.rename(columns={old_name: new_name})
+        
+        return df
     
     def _validate_date_column(self, df: pd.DataFrame) -> List[str]:
         """Validate date column format and parseability.
