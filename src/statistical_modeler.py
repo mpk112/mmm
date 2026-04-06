@@ -422,9 +422,9 @@ class StatisticalModeler:
         coefficients = pd.DataFrame({
             'coef': model.params,
             'std_err': model.bse,
-            'ci_lower': conf_int[0],
-            'ci_upper': conf_int[1]
-        })
+            'ci_lower': conf_int[:, 0],
+            'ci_upper': conf_int[:, 1]
+        }, index=feature_names)
         
         return ModelResults(
             model=model,
@@ -505,9 +505,9 @@ class StatisticalModeler:
                 coefficients = pd.DataFrame({
                     'coef': model.params,
                     'std_err': model.bse,
-                    'ci_lower': conf_int[0],
-                    'ci_upper': conf_int[1]
-                })
+                    'ci_lower': conf_int[:, 0],
+                    'ci_upper': conf_int[:, 1]
+                }, index=feature_names)
                 
                 best_result = ModelResults(
                     model=model,
@@ -600,9 +600,9 @@ class StatisticalModeler:
                 coefficients = pd.DataFrame({
                     'coef': model.params,
                     'std_err': model.bse,
-                    'ci_lower': conf_int[0],
-                    'ci_upper': conf_int[1]
-                })
+                    'ci_lower': conf_int[:, 0],
+                    'ci_upper': conf_int[:, 1]
+                }, index=feature_names)
                 
                 best_result = ModelResults(
                     model=model,
@@ -706,9 +706,9 @@ class StatisticalModeler:
                     coefficients = pd.DataFrame({
                         'coef': model.params,
                         'std_err': model.bse,
-                        'ci_lower': conf_int[0],
-                        'ci_upper': conf_int[1]
-                    })
+                        'ci_lower': conf_int[:, 0],
+                        'ci_upper': conf_int[:, 1]
+                    }, index=feature_names)
                     
                     best_result = ModelResults(
                         model=model,
