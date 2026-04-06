@@ -7,4 +7,4 @@ and ROI through statistical modeling and attribution analysis.
 
 from .data_loader import DataLoader, ValidationResult
 
-__all__ = ['DataLoader', 'ValidationResult']
+__all__ = ["DataLoader", "ValidationResult"]
